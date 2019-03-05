@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include "pila.h"
+#include "grafo.h"
 // Importar aqui abb.h permite no repetir la definicion de 
 // tipoelem. Si no lo hiciesemos tendriamos que copiarla
 // en la implementacion. 
 #include "abb.h"
-
 ///////////////////////// ESTRUCTURAS DE DATOS
 
 struct celda {
@@ -42,8 +42,10 @@ int _comparar_claves(tipoclave cl1, tipoclave cl2){
  * destruirse ha de hacerse aqui. El uso de esta funcion
  * permite hacer mas eficiente la destruccion del arbol.
  */
+
 void _destruir_elem(tipoelem *E){
-	//No se hace nada en la versión 1
+    destruir_pila(&(E->pilaTransferencia));
+    borrar_grafo(&(E->gLocal));
 }
 
 
@@ -134,7 +136,7 @@ tipoelem _suprimir_min(abb *A) {
         ele = (*A)->info;
         aux = *A;
         *A = (*A)->der;
-        _destruir_elem(&aux->info);
+        //_destruir_elem(&aux->info);
         free(aux);
         return ele;
     } else {
@@ -170,7 +172,9 @@ void suprimir(abb *A, tipoelem E) {
         _destruir_elem(&aux->info);
         free(aux);
     } else { 							//ni derecha ni izquierda esta vacio
+        _destruir_elem(&((*A)->info));
         (*A)->info = _suprimir_min(&(*A)->der);
+        //_destruir_elem(&E);
     }
 }
 

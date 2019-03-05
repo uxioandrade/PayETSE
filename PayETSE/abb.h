@@ -2,22 +2,21 @@
 
 #define __ABB_LIB
 
+#include "pila.h"
+#include "grafo.h"
 
 /**
  * Tipo de dato abstracto para arbol binario con clave de 
  * ordenacion y elemento de celda.
  */
 
-#define lonxitude 30 //Utilizamos esta variable para definir la longitud de la cadena de carácteres de tipoclave
-
 ///////////////////////////////////////INICIO PARTE MODIFICABLE
 
 typedef char *tipoclave;
 typedef struct{
-    char nomeUsuario[lonxitude];
-    char receptor[lonxitude];
-    double cantidade;
-    char concepto[lonxitude];
+    char nomeUsuario[MAXLONXITUDE];
+    pila pilaTransferencia;
+    grafo gLocal;
 }tipoelem;
 
 
